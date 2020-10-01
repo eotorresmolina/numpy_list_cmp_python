@@ -16,10 +16,12 @@ __email__ = "emmaotm@gmail.com"
 __version__ = "1.1"
 
 import numpy as np
+import random
+import math
 
 
 def ej1():
-    print('Comenzamos a divertirnos!')
+    print('\nComenzamos a divertirnos!\n\n')
 
     '''
     Empecemos a jugar con las listas y su métodos, el objetivo
@@ -41,10 +43,21 @@ def ej1():
 
     Realizar este proceso iterativo hasta cumplir el objetivo
     '''
+    suma = None
+    lista_aleatoria = []
+
+    while ((suma is None) or (suma > 21)):
+        lista_aleatoria = [random.randrange(1, 11) for num in range(0, 3)]
+        print('Lista Aleatoria: {}'.format(lista_aleatoria))
+        suma = np.sum(lista_aleatoria)
+        if suma <= 21:
+            print('Números Recolectados: {}'.format(lista_aleatoria))
+            
+        print('La Suma de los Números Recolectados es: {}\n'.format(suma))
 
 
 def ej2():
-    print('Comenzamos a ponernos serios!')
+    print('Comenzamos a ponernos serios!\n')
 
     '''
     Dado una lista de nombres de personas "nombres" se desea
@@ -63,10 +76,12 @@ def ej2():
 
     # Se espera obtener:
     # ['Tamara', 'Juan', 'Alberto'......]
+    nombres_filtrados = [nombre for nombre in nombres if (nombre[0] in padron)]
+    print('\nLa Lista de Nombres Filtrados es: {}\n\n'.format(nombres_filtrados))
 
 
 def ej3():
-    print("Un poco de Numpy!")
+    print("\n\nUn poco de Numpy!\n\n")
     # Ejercicio de funciones
     # Se desea calcular los valores de salida de
     # una función senoidal, dado "X" como el conjunto
@@ -81,6 +96,9 @@ def ej3():
     # funcion de numpy "np.sin"
 
     # y_nump =
+    y_nump = np.sin(x)
+    print('Valores de x:\n{}'.format(x))
+    print('\n\nValores de Salida de la Función sin de Numpy:\n{}\n'.format(y_nump))
 
     # Conjunto de valores "X" en una lista
     x = list(np.arange(0, 2*np.pi, 0.1))
@@ -90,6 +108,9 @@ def ej3():
     # de someter cada valor de "X" a la función math.sin
 
     # y_list =
+    y_list = [math.sin(num) for num in x]
+    print('\nValores de x:\n{}'.format(x))
+    print('\n\nValores de Salida de la Función sin de Math:\n{}\n\n'.format(y_list))
 
     # Este es un ejemplo práctico de cuando es útil usar numpy,
     # basicamente siempre que deseen utilizar una función matemática
@@ -98,7 +119,7 @@ def ej3():
 
 
 def ej4():
-    print("Acercamiento al uso de datos relacionales")
+    print("\n\nAcercamiento al uso de datos relacionales:\n\n")
     # Transformar variable numéricas en categóricas
     # Se dispone del siguiente diccionario que traduce el número ID
     # de un producto en su nombre, por ejemplo:
@@ -124,9 +145,12 @@ def ej4():
     # de diccionarios que tiene un parametro configurable respecto
     # que sucede sino encuentra la "key" en el diccionario.
 
+    lista_compra_productos = [producto.get(id, 'NaN') for id in lista_compra_id]
+    print('\nLa Nueva Lista Transformada de "ID" al "Producto" es: {}\n\n'.format(lista_compra_productos))
+
 
 def ej5():
-    print("Ahora sí! buena suerte :)")
+    print("\n\nAhora sí! buena suerte :)\n\n")
 
     '''
     Black jack! [o algo parecido :)]
@@ -148,11 +172,99 @@ def ej5():
     más cercanos a 21 sin pasarse!
     '''
 
+    # Inicialización de Variables:
+    suma_j1 = 0
+    suma_j2 = 0
+    contador = 0
+    sacar_numero = True
+    sacar_numero_j2 = True
+    turno_jugador1 = True
+    turno_jugador2 = False
+
+    mano_jugador1 = [random.randint(1, 10) for valor in range(2)]
+    suma_j1 = sum(mano_jugador1)
+    print('Los Valores de las Cartas del Jugador 1 es: {}'.format(mano_jugador1))
+    print('La Suma de los Valores de las Cartas Hasta el Momento: {}\n\n'.format(suma_j1))
+
+    mano_jugador2 = [random.randint(1, 10) for valor in range(2)]
+    suma_j2 = sum(mano_jugador2)
+    print('Los Valores de las Cartas del Jugador 2 es: {}'.format(mano_jugador2))
+    print('La Suma de los Valores de las Cartas Hasta el Momento: {}\n\n'.format(suma_j2))
+
+    while (((suma_j1 <= 21) and (suma_j2 <= 21)) and (sacar_numero is True)):
+        if turno_jugador1 is True:
+            sacar_numero_j1 = str(input('Jugador 1: ¿Desea sacar Otro Número? [Y/N]: '))
+            if sacar_numero_j1.upper( ) in 'YES':
+                mano_jugador1.append(random.randint(1, 10))
+                sacar_numero_j1 = True
+                suma_j1 = sum(mano_jugador1)
+            elif sacar_numero_j1.upper( ) in 'NO':
+                sacar_numero_j1 = False
+                contador = 0
+                contador += 1
+
+            print('Los Valores de Carta del Jugador 1 es: {}'.format(mano_jugador1))
+            print('La Suma de los Valores Hasta el Momento: {}\n\n'.format(suma_j1))
+            turno_jugador1 = False
+            turno_jugador2 = True
+        
+        elif turno_jugador2 is True:
+            sacar_numero_j2 = str(input('Jugador 2: ¿Desea sacar Otro Número? [Y/N]: '))
+            if sacar_numero_j2.upper( ) in 'YES':
+                mano_jugador2.append(random.randint(1, 10))
+                sacar_numero_j2 = True
+                suma_j2 = sum(mano_jugador2)
+            elif sacar_numero_j2.upper( ) in 'NO':
+                sacar_numero_j2 = False
+                contador += 1
+
+            print('Los Valores de Carta del Jugador 2 es: {}'.format(mano_jugador2))
+            print('La Suma de los Valores Hasta el Momento: {}\n\n'.format(suma_j2))
+            turno_jugador2 = False
+            turno_jugador1 = True
+
+        if contador == 2:
+            sacar_numero = sacar_numero_j1 or sacar_numero_j2
+
+
+    if suma_j1 > suma_j2:
+        if suma_j1 == 21:
+            print('\nEl Jugador 1 Ganó!! Hizo BlackJack!!\n\n')
+        elif suma_j1 < 21:
+            print('\nEl Jugador 1 Ganó!!\n\n')
+        else:
+            if suma_j2 < 21:
+                print('\nEl Jugador 2 Ganó!!\n\n')
+            elif suma_j2 == 21:
+                print('\nEl Jugador 2 Ganó!! Hizo BlackJack!!\n\n')
+            else:
+                print('\nAmbos Jugadores Pierden!! La Casa Gana!\n\n')
+    elif suma_j1 == suma_j2:
+        if suma_j1 == 21:
+            print('\nLos Jugadores Hicieron BlackJack!! Es un Empate.\n\n')
+        elif suma_j1 > 21:
+            print('\nAmbos Jugadores Pierden!! La Casa Gana!\n\n')
+        else:
+            print('\nLos Jugadores Empataron!!\n\n')
+    else:
+        if suma_j2 == 21:
+            print('\nEl Jugador 2 Ganó!! Hizo BlackJack!!\n\n')
+        elif suma_j2 < 21:
+            print('\nEl Jugador 2 Ganó!!\n\n')
+        else:
+            if suma_j1 < 21:
+                print('\nEl Jugador 1 Ganó!!\n\n')
+            elif suma_j1 == 21:
+                print('\nEl Jugador 1 Ganó!! Hizo BlackJack!!\n\n')
+            else:
+                print('\nAmbos Jugadores Pierden!! La Casa Gana!\n\n')
+
+
 
 if __name__ == '__main__':
-    print("Ejercicios de práctica")
-    # ej1()
-    # ej2()
-    # ej3()
-    # ej4()
-    # ej5()
+    print("\n\nEjercicios de práctica:\n\n")
+    #ej1()
+    #ej2()
+    #ej3()
+    #ej4()
+    ej5()

@@ -17,6 +17,8 @@ __version__ = "1.2"
 
 import numpy as np
 import math
+import random
+from random import randrange
 
 
 def ej1():
@@ -27,6 +29,11 @@ def ej1():
 
     # potencia_2 = lambda x:......
     # pot_3 = potencia_2(3)
+
+    numero = float(input('\n\nIngrese un Número: '))
+    potencia_2 = lambda x: x**2
+    potencia_numero = potencia_2(numero)
+    print('\nLa Potencia de 2 del Número Ingresado es: {}\n\n'.format(potencia_numero))
 
     # 2)
     # Utilice la función map para mapear una lambda expression
@@ -43,6 +50,9 @@ def ej1():
     numeros = [1, -5, 4, 3]
 
     # numeros_potencia = list(map....)
+    numeros_potencia = list(map(lambda x: x**2, numeros))
+    print('Lista Original: {}'.format(numeros))
+    print('La Lista de Números Elevados al Cuadrado: {}\n\n'.format(numeros_potencia))
 
 
 def ej2():
@@ -51,7 +61,11 @@ def ej2():
     # Realizar una funcion lambda que retorne el tamaño
     # (len) de un string pasado como parámetro
 
+    string = str(input('\n\nIngrese una Cadena de Caracteres: '))
+
     # len_string = lambda......
+    len_string = (lambda x: len(x))(string)
+    print('La Cadena de Caracteres que Ingresó posee {} Caracteres.\n\n'.format(len_string))
 
     # 2)
     # Lista de string
@@ -68,6 +82,10 @@ def ej2():
     # directamente la lambda.
 
     # palabras_len = list(map....)
+    palabras_len = list(map(lambda x: len(x), palabras))
+    print('Lista Original: {}'.format(palabras))
+    print('El Tamaño de Cada elemento de la Lista Original es: {}\n\n'.format(palabras_len))
+
 
 
 def ej3():
@@ -78,6 +96,8 @@ def ej3():
     # números, conteniendo del 0 al 10 inclusive
 
     # lista_0_10 = [......]
+    lista_0_10 = [numero for numero in range(0, 11)]        # Compresión de Listas.
+    print('\n\nLa Lista Generada es: {}\n\n'.format(lista_0_10))
 
     # 2)
     # Generar una lista a partir de comprensión de listas,
@@ -91,6 +111,9 @@ def ej3():
     # elemento lo multipliquen x5.
 
     # tabla_5 = [......]
+    tabla_5 = [(numero * 5) for numero in range(0, 11)]
+    print('\n\nLa Lista Generada es: {}\n\n'.format(tabla_5))
+
 
     # 3)
     # Generar una lista a partir de comprensión de listas,
@@ -102,8 +125,8 @@ def ej3():
     # https://docs.python.org/3/library/random.html
 
     # dias_mes = [.....]
-
-    pass
+    dias_mes = [randrange(1,31,1) for dia in range(0, 11) ]
+    print('La Lista Generada es: {}\n\n'.format(dias_mes))
 
 
 def ej4():
@@ -119,11 +142,19 @@ def ej4():
     # TIP: Recomendamos ver el método "isdigit" de strings
     # para aplicar en este caso.
     list_numeros_str = ['5', '2', '3', '', '7', 'NaN']
-
+    conv_str_int = [(int(elemento) if (elemento.isdigit( ) is True) else 0) for elemento in list_numeros_str]
+    print('\n\nLista Original: {}'.format(list_numeros_str))
+    print('La Lista Original Convertida a una Lista de Números es: {}\n\n'.format(conv_str_int))
 
     # ¿Ya terminaron el ejercicio? ¿Por qué no prueban
     # hacer negativo alguno de los números de la lista?
     # ¿Qué sucede con isdigit? Sorprendente no?    
+
+    list_numeros_str = ['-5', '2', '-3', '', '7', 'NaN']  
+    conv_str_int = [(int(elemento) if (elemento.isdigit( ) is True) else 0) for elemento in list_numeros_str]
+    print('Lista Original: {}'.format(list_numeros_str))
+    print('La Lista Original Convertida a una Lista de Números es: {}'.format(conv_str_int))
+    print('Se Observa que Si se Hace Negativo un Número de la Lista Original, el método "isdigit( )" no la Toma como un Número.\n\n')
 
 
 def ej5():
@@ -131,7 +162,7 @@ def ej5():
 
     accesos = [10, 50, 7, 5, 15, 25, 3, 4, 13]
 
-    # La lista accesso contiene los números de ID de personal
+    # La lista accesos contiene los números de ID de personal
     # que ingresaron por ese molinete
 
     # 1)
@@ -143,6 +174,10 @@ def ej5():
     # comprendido en dicho rango pasó por ese molinete
 
     # personal_1_10 = [.....]
+    personal_1_10 = [id for id in accesos if (1 <= id <= 10)]
+    print('\n\nLa Lista de Accesos de Personal es: {}'.format(accesos))
+    print('La Lista Filtrada es: {}'.format(personal_1_10))
+    print('La Cantidad de Personal que Ingresó por ese Molinete es de: {} Personas.\n\n'.format(len(personal_1_10)))
 
     # 2)
     # Generar una lista por comprensión de la listas "accesos"
@@ -155,7 +190,8 @@ def ej5():
     # dentro de "id_validos"
 
     # personal_valido = [.....]
-    pass
+    personal_valido = [id for id in accesos if (id in id_validos)]
+    print('La Lista de ID Válidos es: {}\n\n'.format(personal_valido))
 
 
 def ej6():
@@ -169,29 +205,36 @@ def ej6():
     # utilizar el método "sum" de numpy
 
     # suma = ....
+    array_int = np.arange(0, 1000)
+    print('\n\nLa Lista de Números es:\n{}'.format(array_int))
+    suma = np.sum(array_int)
+    print('\nLa Suma de los Números de la Lista es: {}\n\n'.format(suma))
 
     # 2)
     # Calcular la diferencia de todos los elementos en el array
     # utilizar el método "diff" de numpy
 
     # diferencia = ....
+    diferencia = np.diff(array_int)
+    print('La Diferencia de los Números de la Lista es:\n{}\n\n'.format(diferencia))
 
     # 3)
     # Utilizar la funcion "where" para reemplazar los números múltiplos
     # de "5" por un "0"
-    # Ojo: ¿Que operador matematico utilizará para saber si un número es
+    # Ojo: ¿Que operador matemático utilizará para saber si un número es
     # múltiplo de "5"? Ese operador ya lo conoce y lo viene utilizando
     # bastante para saber si un número es múltiplo de "2"
 
     # nuevo_array = ....
-    pass
+    nuevo_array = np.where((array_int % 5) == 0, array_int, 0) 
+    print('La Nueva Lista con los Números que Son Múltiplos de 5 es:\n{}\n\n'.format(nuevo_array))
 
 
 if __name__ == '__main__':
-    print("Bienvenidos a otra clase de Inove con Python")
+    print("\n\nBienvenidos a otra clase de Inove con Python")
     ej1()
-    # ej2()
-    # ej3()
-    # ej4()
-    # ej5()
-    # ej6()
+    ej2()
+    ej3()
+    ej4()
+    ej5()
+    ej6()
