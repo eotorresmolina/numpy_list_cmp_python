@@ -226,7 +226,7 @@ def ej6():
     # bastante para saber si un número es múltiplo de "2"
 
     # nuevo_array = ....
-    nuevo_array = np.where((array_int % 5) == 0, array_int, 0) 
+    nuevo_array = np.where((array_int % 5) != 0, array_int, 0) 
     print('La Nueva Lista con los Números que Son Múltiplos de 5 es:\n{}\n\n'.format(nuevo_array))
 
 
